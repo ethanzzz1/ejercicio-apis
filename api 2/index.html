@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        img { max-width: 100%; height: auto; }
+ </style>
+ </head>
+ <body>
+ <h1>Último Lanzamiento de SpaceX</h1>
+ <button onclick="getSpaceXImage()">Ver Imagen</button>
+ <div id="spacex"></div>
+ <script>
+        async function getSpaceXImage() {
+            const url = "https://api.spacexdata.com/v4/launches/latest";
+            const response = await fetch(url);
+            const data = await response.json();
+            document.getElementById("spacex").innerHTML = `
+ <h2>${data.name}</h2>
+ <img src="${data.links.patch.small}" alt="Imagen del lanzamiento">
+ <p><a href="${data.links.webcast}" target="_blank">Ver lanzamiento</a></p>
+            `;
+        }
+ </script>
+    
+</body>
+</html>
