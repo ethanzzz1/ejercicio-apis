@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        input, button { padding: 10px; margin: 10px; }
+        .character { border: 1px solid #ccc; padding: 10px; margin: 10px; display: inline-block; width: 250px; }
+        img { width: 100%; }
+ </style>
+ </head>
+ <body>
+ <h1>Buscador de Personajes de Rick and Morty</h1>
+ <input type="text" id="search" placeholder="Ingrese nombre del personaje">
+ <button onclick="searchCharacter()">Buscar</button>
+ <div id="results"></div>
+ <script>
+        async function searchCharacter() {
+            const query = document.getElementById("search").value;
+            if (!query) return alert("Ingrese un nombre para buscar");
+            const url = `https://rickandmortyapi.com/api/character/?name=${query}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            if (data.error) {
+                document.getElementById("results").innerHTML = "<p>No se encontraron resultados</p>";
+                return;
+            }
+            let html = "";
+            data.results.forEach(character => {
+                html += `
+ <div class="character">
+ <img src="${character.image}" alt="${character.name}">
+ <h3>${character.name}</h3>
+ <p><strong>Estado:</strong> ${character.status}</p>
+ <p><strong>Especie:</strong> ${character.species}</p>
+ <p><strong>Origen:</strong> ${character.origin.name}</p>
+ </div>
+                `;
+            });
+            document.getElementById("results").innerHTML = html;
+        }
+ </script>
+</body>
+</html>
