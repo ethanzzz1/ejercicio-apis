@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>api</title>
+</head>
+<body>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        input, button { padding: 8px; margin: 10px; }
+ </style>
+ </head>
+ <body>
+ <h1>Clima en Tiempo Real</h1>
+ <input type="text" id="city" placeholder="Ingresa una ciudad">
+ <button onclick="getWeather()">Consultar Clima</button>
+ <pre id="weather"></pre>
+ <script>
+        async function getWeather() {
+            const city = document.getElementById("city").value;
+            const url = `https://wttr.in/${city}?format=3`;
+            const response = await fetch(url);
+            const data = await response.text();
+            document.getElementById("weather").textContent = data;
+        }
+ </script>
+    
+</body>
+</html>
